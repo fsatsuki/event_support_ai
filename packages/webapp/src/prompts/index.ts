@@ -15,4 +15,5 @@ export type SummarizeParams = {
 
 export interface Prompter {
   summarizePrompt(params: SummarizeParams): string;
+  generateMinutes(params: SummarizeParams): string;
 }

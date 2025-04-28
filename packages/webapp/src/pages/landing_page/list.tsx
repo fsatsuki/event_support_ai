@@ -36,6 +36,12 @@ export const ComponentList = () => {
           alt: "First",
           description: "Amazon TranslateとAmazon Transcribeを使用して音声をリアルタイムに翻訳します",
           link: "/audio_translate"
+        },
+        {
+          name: "議事録生成",
+          alt: "Second",
+          description: "音声の文字起こしデータから詳細な議事録を生成します",
+          link: "/meeting_minutes"
         }
       ]}
       loadingText="Loading resources"
