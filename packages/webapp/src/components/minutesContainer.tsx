@@ -5,6 +5,7 @@ import {
   Button,
   Container,
   FormField,
+  Header,
   SpaceBetween,
   SelectProps,
   Textarea,
@@ -93,7 +94,13 @@ const MinutesContainer: React.FC<Props> = (props) => {
 
   return (
     <SpaceBetween size="l">
-      <Container header={{ variant: 'h3', children: '文字起こしデータ入力' }}>
+      <Container
+        header={
+          <Header variant="h3">
+            文字起こしデータ入力
+          </Header>
+        }
+      >
         <FormField label="文字起こしデータを入力してください">
           <Textarea
             value={transcriptText}
@@ -112,7 +119,13 @@ const MinutesContainer: React.FC<Props> = (props) => {
         </Box>
       </Container>
 
-      <Container header={{ variant: 'h3', children: '生成された議事録' }}>
+      <Container
+        header={
+          <Header variant="h3">
+            生成された議事録
+          </Header>
+        }
+      >
         <Box
           padding="l"
           variant="p"
