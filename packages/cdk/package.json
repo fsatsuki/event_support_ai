@@ -22,7 +22,9 @@
   "dependencies": {
     "@aws-cdk/aws-cognito-identitypool-alpha": "^2.135.0-alpha.0",
     "@aws-solutions-constructs/aws-cloudfront-s3": "^2.54.1",
+    "@types/aws-lambda": "^8.10.149",
     "aws-cdk-lib": "2.135.0",
+    "aws-lambda": "^1.0.7",
     "constructs": "^10.3.0",
     "deploy-time-build": "^0.3.17",
     "source-map-support": "^0.5.21"
