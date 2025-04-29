@@ -40,7 +40,7 @@ const useBedrock = () => {
       const response:InvokeModelWithResponseStreamCommandOutput = await bedrockClient.send(new InvokeModelWithResponseStreamCommand({
         body: body,
         contentType: "application/json",
-        modelId: "anthropic.claude-instant-v1"
+        modelId: "us.anthropic.claude-3-5-haiku-20241022-v1:0"
       }))
   
       return response
