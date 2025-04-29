@@ -1,7 +1,8 @@
 import { claudePrompter } from './claude';
 
-export const getPrompter = (modelId: string) => {
-  if (modelId.startsWith('anthropic.claude-')) {
+export const getPrompter = (modelId?: string) => {
+  // modelIdが未定義の場合でもデフォルトでclaudePrompterを返す
+  if (!modelId || modelId.startsWith('anthropic.claude-')) {
     return claudePrompter;
   }
   return claudePrompter;
