@@ -80,15 +80,16 @@ describe('MinutesContainer', () => {
     const button = screen.getByRole('button', { name: '議事録生成' });
     fireEvent.click(button);
     
-    // 結果が表示されるのを待つ
+    // 結果が表示されるのを待つ - 内容が白スペースで分割されているため、テキスト全体ではなく部分的なテキストを探す
     await waitFor(() => {
-      expect(screen.getByText('# テスト議事録')).toBeInTheDocument();
+      // div要素内のテキストコンテンツを確認するため、正規表現で部分一致を使用
+      expect(screen.getByText(/テスト議事録/)).toBeInTheDocument();
     });
     
-    // 議事録の内容が表示されていることを確認
-    expect(screen.getByText('## 議題')).toBeInTheDocument();
-    expect(screen.getByText('- 項目1')).toBeInTheDocument();
-    expect(screen.getByText('- 項目2')).toBeInTheDocument();
+    // 議事録の内容が表示されていることを確認 - 同様に部分一致で検索
+    expect(screen.getByText(/議題/)).toBeInTheDocument();
+    expect(screen.getByText(/項目1/)).toBeInTheDocument();
+    expect(screen.getByText(/項目2/)).toBeInTheDocument();
     
     // エクスポートボタンが表示されていることを確認
     expect(screen.getByRole('button', { name: '議事録をエクスポート' })).toBeInTheDocument();
