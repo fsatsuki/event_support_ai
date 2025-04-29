@@ -31,7 +31,8 @@ interface Props{
   activeFlag: boolean
 }
 
-const modelId = import.meta.env.VITE_APP_MODEL_ID;
+// 環境変数が存在しない場合にデフォルト値を設定
+const modelId = import.meta.env.VITE_APP_MODEL_ID || 'anthropic.claude-v2';
 
 const SummaryContainer: React.FC<Props> = (props) => {
   
