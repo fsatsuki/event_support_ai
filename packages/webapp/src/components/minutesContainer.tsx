@@ -41,6 +41,7 @@ const MinutesContainer: React.FC<Props> = (props) => {
     }
 
     setIsGenerating(true);
+    setNotifications([]);
 
     // プロンプト生成
     const prompt = prompter.generateMinutes({
@@ -60,22 +61,43 @@ const MinutesContainer: React.FC<Props> = (props) => {
       const response = await invokeBedrock(JSON.stringify(payload));
       if (!response) {
         console.error('response is null');
+        addNotification({
+          type: 'error',
+          content: '議事録の生成に失敗しました。再度お試しください。',
+          dismissible: true,
+          onDismiss: () => removeNotification('generate-error'),
+          id: 'generate-error',
+        });
         setIsGenerating(false);
         return;
       }
 
       let completion = '';
       if (response.body) {
-        const textDecoder = new TextDecoder('utf-8');
-
-        for await (const stream of response.body) {
-          const chunk = textDecoder.decode(stream.chunk?.bytes);
-          completion = completion + JSON.parse(chunk)['completion'];
-          setMinutesText(completion);
+        for await (const event of response.body) {
+          if (event.contentBlockDelta?.delta?.text) {
+            completion += event.contentBlockDelta.delta.text;
+            setMinutesText(completion);
+          }
         }
       }
+      
+      addNotification({
+        type: 'success',
+        content: '議事録の生成が完了しました',
+        dismissible: true,
+        onDismiss: () => removeNotification('generate-success'),
+        id: 'generate-success',
+      });
     } catch (error) {
       console.error('Error generating minutes:', error);
+      addNotification({
+        type: 'error',
+        content: `議事録の生成に失敗しました: ${error instanceof Error ? error.message : '不明なエラー'}`,
+        dismissible: true,
+        onDismiss: () => removeNotification('generate-error'),
+        id: 'generate-error',
+      });
     } finally {
       setIsGenerating(false);
     }
@@ -153,33 +175,6 @@ const MinutesContainer: React.FC<Props> = (props) => {
     );
   };
 
-  // モックデータを追加（本番環境ではBedrockの応答を使用）
-  const handleMockGenerate = () => {
-    const mockMinutes = `# プロジェクト会議議事録
-
-## 日時・参加者
-日時：${new Date().toLocaleDateString('ja-JP')}
-参加者：佐藤、田中、鈴木、他
-
-## 議題
-1. 新機能の実装スケジュール
-2. リリース日程の調整
-3. ユーザーフィードバックの分析
-
-## 報告事項
-- 佐藤：新機能のUI設計が完了
-- 田中：バックエンド部分の実装は予定通り進捗
-- 鈴木：テスト計画について提案、全体で議論
-
-## 決定事項
-- 次回ミーティング：来週水曜日
-
-## フォローアップ
-- UI設計のレビュー
-- テスト計画の詳細策定
-`;
-    setMinutesText(mockMinutes);
-  };
   
   return (
     <SpaceBetween size="l">
@@ -204,7 +199,7 @@ const MinutesContainer: React.FC<Props> = (props) => {
         </FormField>
         <Box margin={{ top: 'l' }}>
           <Button
-            onClick={handleMockGenerate /* 本番環境では generateMinutes を使用 */}
+            onClick={generateMinutes}
             loading={isGenerating}
             variant="primary"
           >

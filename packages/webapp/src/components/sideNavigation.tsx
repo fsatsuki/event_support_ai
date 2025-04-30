@@ -18,6 +18,8 @@ export const SideNavi = () => {
       items={[
         { type: "link", text: "ホーム", href: "/" },
         { type: "link", text: "リアルタイム翻訳", href: "/audio_translate" },
+        { type: "link", text: "リアルタイム翻訳", href: "/audio_translate" },
+        { type: "link", text: "議事録生成", href: "/meeting_minutes"},
         { type: "divider" }
       ]}
     />

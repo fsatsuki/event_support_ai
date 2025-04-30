@@ -32,7 +32,7 @@ interface Props{
 }
 
 // 環境変数が存在しない場合にデフォルト値を設定
-const modelId = import.meta.env.VITE_APP_MODEL_ID || 'anthropic.claude-v2';
+const modelId = import.meta.env.VITE_APP_MODEL_ID || 'anthropic.claude-3-5-haiku-20241022-v1:0';
 
 const SummaryContainer: React.FC<Props> = (props) => {
   
@@ -86,13 +86,11 @@ const SummaryContainer: React.FC<Props> = (props) => {
       
       let completion = "";
       if (response.body) {
-        const textDecoder = new TextDecoder("utf-8");
-      
-        for await (const stream of response.body) {
-          const chunk = textDecoder.decode(stream.chunk?.bytes);
-          completion = completion + JSON.parse(chunk)["completion"];
-          // console.log(completion)
-          setSummarizedText(completion)
+        for await (const event of response.body) {
+          if (event.contentBlockDelta?.delta?.text) {
+            completion += event.contentBlockDelta.delta.text;
+            setSummarizedText(completion);
+          }
         }
       }
       }, 1000 * 60);

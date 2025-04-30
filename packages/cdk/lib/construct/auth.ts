@@ -4,10 +4,7 @@ import {
   UserPoolClient,
   UserPoolOperation,
 } from 'aws-cdk-lib/aws-cognito';
-import {
-  IdentityPool,
-  UserPoolAuthenticationProvider,
-} from '@aws-cdk/aws-cognito-identitypool-alpha';
+import { IdentityPool, UserPoolAuthenticationProvider } from 'aws-cdk-lib/aws-cognito-identitypool';
 import { Effect, Policy, PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import { Construct } from 'constructs';
 import { Runtime } from 'aws-cdk-lib/aws-lambda';
@@ -129,10 +126,11 @@ export class Auth extends Construct {
           new PolicyStatement({
             actions: [
               "bedrock:InvokeModel",
-            "bedrock:InvokeModelWithResponseStream"
+              "bedrock:InvokeModelWithResponseStream"
             ],
             resources: [
-              "arn:aws:bedrock:*::foundation-model/*"
+              "arn:aws:bedrock:*::foundation-model/*",
+              "arn:aws:bedrock:*:*:inference-profile/*"
             ],
           }),
         ],

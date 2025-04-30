@@ -26,6 +26,12 @@
 - Amazon Translateによる逐次翻訳
 - 直近の話題についてAI要約機能（Amazon Bedrock Claude使用）
 
+### 議事録生成
+
+- 文字起こしデータから構造化された議事録を自動生成
+- Amazon Bedrock Claude 3.5 Haikuを活用した高品質な議事録作成
+- ダウンロードやクリップボードへのコピー機能
+
 ### 使用シナリオ
 
 - 国際会議やイベントでのリアルタイム翻訳
@@ -79,7 +85,6 @@ npm ci
 |selfSignUpEnabled| Amazon Cognitoのセルフサインアップを有効化する| true|
 |allowedSignUpEmailDomains|Amazon Cognitoにサインアップ可能なメールのドメインを設定する| amazon.co.jp|
 |modelRegion| Amazon Bedrockのモデルを使用するリージョンを選択| us-east-1|
-|modelIds| 要約で使用するAmazon Bedrockのモデルを設定する | anthropic.claude-3-sonnet-20240229-v1:0|
 |allowedIpV4AddressRanges| AWS WAFに設定するIPアドレスによる制限。リスト形式で列挙する。無効化する場合はnullを設定する。|null|
 |allowedIpV6AddressRanges| AWS WAFに設定するIPアドレスによる制限。リスト形式で列挙する。無効化する場合はnullを設定する。|null|
 |allowedCountryCodes| AWS WAFに設定する地理的一致ルールステートメント| ["JP"]

@@ -10,17 +10,16 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-
     "test:a11y": "vitest run a11y",
     "test:e2e": "vitest run e2e"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^5.0.6",
-    "@aws-sdk/client-bedrock-runtime": "^3.549.0",
-    "@aws-sdk/client-cognito-identity": "^3.549.0",
-    "@aws-sdk/client-transcribe": "^3.549.0",
-    "@aws-sdk/client-transcribe-streaming": "^3.549.0",
-    "@aws-sdk/credential-provider-cognito-identity": "^3.549.0",
+    "@aws-sdk/client-bedrock-runtime": "^3.799.0",
+    "@aws-sdk/client-cognito-identity": "^3.799.0",
+    "@aws-sdk/client-transcribe": "^3.799.0",
+    "@aws-sdk/client-transcribe-streaming": "^3.799.0",
+    "@aws-sdk/credential-provider-cognito-identity": "^3.799.0",
     "@cloudscape-design/components": "^3.0.597",
     "@cloudscape-design/global-styles": "^1.0.27",
     "@react-icons/all-files": "^4.1.0",

@@ -5,16 +5,16 @@ import {
   RouterProvider,
   RouteObject
 } from "react-router-dom";
-import App from './App.tsx';
+import AuthWithUserpool from './components/authWithUserpool';
 
 import './index.css'
 import "@cloudscape-design/global-styles/index.css"
 
-import LandingPage from './pages/landing_page/index.tsx'
-import AuditoTranslate from './pages/audio_translate/index.tsx'
+import LandingPage from './pages/landing_page/index'
+import AuditoTranslate from './pages/audio_translate/index'
 
 // 議事録ページをインポート
-import MeetingMinutes from './pages/meeting_minutes/index.tsx';
+import MeetingMinutes from './pages/meeting_minutes/index';
 
 // メインとなるルート定義
 const routes: RouteObject[] = [
@@ -34,14 +34,12 @@ const routes: RouteObject[] = [
   
 ].flatMap((r) => (r !== null ? [r] : []));
 
-// React.lazy用のSuspenseラッパーを追加
-import { Suspense } from 'react';
 
-// 認証をバイパスして直接Appコンポーネントを使用
+// 認証コンポーネントを使用
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <AuthWithUserpool />,
     children: routes,
   },
 ]);
